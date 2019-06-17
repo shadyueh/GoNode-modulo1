@@ -1,10 +1,15 @@
-const http = require("http");
+const express = require("express");
 
-http
-  .createServer((req, res) => {
-    console.log(req); //imprime a requisição
-    return res.end("Hello Node"); //responde a requisição
-  })
-  .listen(3000);
+const app = express();
+
+app.get("/", (req, res) => {
+  return res.end("Hello Node"); //responde a requisição para '/'
+});
+
+app.get("/login", (req, res) => {
+  return res.end("Login"); //responde a requisição para '/login'
+});
+
+app.listen(3000);
 
 //acessar http://localhost:3000 no navegador para testar
