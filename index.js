@@ -2,7 +2,15 @@ const express = require("express");
 
 const app = express();
 
-app.get("/", (req, res) => {
+// exemplo de interceptador (middleware)
+const logMiddleware = (req, res, next) => {
+  console.log(
+    `HOST: ${req.headers.host} | URL: ${req.url} | METHOD: ${req.method}`
+  );
+  return next(); //evita o bloqueio do fluxo da requisição
+};
+
+app.get("/", logMiddleware, (req, res) => {
   return res.end(`Bem vindo, ${req.query.name}`); //usando parâmetro passado por query string
 });
 
