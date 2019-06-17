@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 
 app.get("/", (req, res) => {
-  return res.end("Hello Node"); //responde a requisição para '/'
+  return res.end(`Bem vindo, ${req.query.name}`); //usando parâmetro passado por query string
 });
 
 app.get("/login", (req, res) => {
@@ -11,7 +11,9 @@ app.get("/login", (req, res) => {
 });
 
 app.get("/nome/:name", (req, res) => {
-  return res.end(`Bem vindo, ${req.params.name}`); //responde a requisição parametrizada
+  return res.json({
+    message: `Bem vindo, ${req.params.name}`
+  }); //passando json como resposta
 });
 
 app.listen(3000);
