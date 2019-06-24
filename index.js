@@ -7,17 +7,22 @@ const logMiddleware = (req, res, next) => {
   console.log(
     `HOST: ${req.headers.host} | URL: ${req.url} | METHOD: ${req.method}`
   );
-  return next(); //evita o bloqueio do fluxo da requisição
+  //evita o bloqueio do fluxo da requisição
+  return next();
 };
 
 app.get("/", logMiddleware, (req, res) => {
-  return res.end(`Bem vindo, ${req.query.name}`); //usando parâmetro passado por query string
+  //usando parâmetro passado por query string
+  if (req.query.name) {
+    return res.end(`Bem vindo, ${req.query.name}`);
+  } else return res.end(`You have no power here.`);
 });
 
-app.get("/nome/:name", (req, res) => {
+app.get("/nome/:name", logMiddleware, (req, res) => {
+  //passando json como resposta
   return res.json({
     message: `Bem vindo, ${req.params.name}`
-  }); //passando json como resposta
+  });
 });
 
 app.listen(3000);
