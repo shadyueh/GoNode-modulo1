@@ -1,32 +1,21 @@
 const express = require("express");
+const nunjucks = require("nunjucks");
 
 const app = express();
 
-// exemplo de interceptador (middleware)
-const logMiddleware = (req, res, next) => {
-  console.log(
-    `HOST: ${req.headers.host} | URL: ${req.url} | METHOD: ${req.method}`
-  );
-  req.appName = "GoNode";
-  //evita o bloqueio do fluxo da requisição
-  return next();
-};
-
-// permite que todas as rotas utilizem o middleware logMiddleware
-app.use(logMiddleware);
-
-app.get("/", (req, res) => {
-  //usando parâmetro passado por query string
-  if (req.query.name) {
-    return res.end(`Bem vindo ao ${req.appName}, ${req.query.name}`);
-  } else return res.end(`You have no power here.`);
+// template engine nunjucks
+nunjucks.configure("views", {
+  autoescape: true,
+  express: app,
+  watch: true
 });
 
-app.get("/nome/:name", (req, res) => {
-  //passando json como resposta
-  return res.json({
-    message: `Bem vindo ao ${req.appName}, ${req.params.name}`
-  });
+// configura a extensão para o arquivo de templates
+app.set("view engine", "njk");
+
+// renderizando uma view com nunjucks, passando parâmetros
+app.get("/", (req, res) => {
+  return res.render("list", { name: "Diego" });
 });
 
 app.listen(3000);
