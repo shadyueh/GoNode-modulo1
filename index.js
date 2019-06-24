@@ -10,6 +10,9 @@ nunjucks.configure("views", {
   watch: true
 });
 
+// express manuseia as informações vinda no form
+app.use(express.urlencoded({ extended: false }));
+
 // configura a extensão para o arquivo de templates
 app.set("view engine", "njk");
 
@@ -22,6 +25,11 @@ app.get("/", (req, res) => {
 
 app.get("/new", (req, res) => {
   return res.render("new");
+});
+
+app.post("/create", (req, res) => {
+  console.log(req.body);
+  return res.send("ok");
 });
 
 app.listen(3000);
