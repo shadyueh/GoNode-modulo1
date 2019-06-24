@@ -28,8 +28,8 @@ app.get("/new", (req, res) => {
 });
 
 app.post("/create", (req, res) => {
-  console.log(req.body);
-  return res.send("ok");
+  users.push(req.body.user);
+  return res.redirect("/");
 });
 
 app.listen(3000);
