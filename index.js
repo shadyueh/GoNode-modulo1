@@ -13,9 +13,11 @@ nunjucks.configure("views", {
 // configura a extensão para o arquivo de templates
 app.set("view engine", "njk");
 
+const users = ["Held Grijo", "Gabriel Souza", "Gabriel Dantas"];
+
 // renderizando uma view com nunjucks, passando parâmetros
 app.get("/", (req, res) => {
-  return res.render("list", { name: "Diego" });
+  return res.render("list", { users });
 });
 
 app.listen(3000);
