@@ -20,6 +20,10 @@ app.get("/", (req, res) => {
   return res.render("list", { users });
 });
 
+app.get("/new", (req, res) => {
+  return res.render("new");
+});
+
 app.listen(3000);
 
 // use yarn start para iniciar o server com o nodemon
