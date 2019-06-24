@@ -11,14 +11,17 @@ const logMiddleware = (req, res, next) => {
   return next();
 };
 
-app.get("/", logMiddleware, (req, res) => {
+// permite que todas as rotas utilizem o middleware logMiddleware
+app.use(logMiddleware);
+
+app.get("/", (req, res) => {
   //usando parâmetro passado por query string
   if (req.query.name) {
     return res.end(`Bem vindo, ${req.query.name}`);
   } else return res.end(`You have no power here.`);
 });
 
-app.get("/nome/:name", logMiddleware, (req, res) => {
+app.get("/nome/:name", (req, res) => {
   //passando json como resposta
   return res.json({
     message: `Bem vindo, ${req.params.name}`
