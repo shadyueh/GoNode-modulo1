@@ -1,5 +1,6 @@
 const express = require("express");
 const nunjucks = require("nunjucks");
+const path = require("path");
 
 const app = express();
 
@@ -12,6 +13,10 @@ nunjucks.configure("views", {
 
 // express manuseia as informações vinda no form
 app.use(express.urlencoded({ extended: false }));
+
+// express static para entregar arquivos diretament
+// path.resolve para tratar os path slashes
+app.use(express.static(path.resolve(__dirname, "css")));
 
 // define a extensão para o arquivo de templates
 app.set("view engine", "njk");

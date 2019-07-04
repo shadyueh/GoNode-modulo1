@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css?family=Proza+Libre&display=swap");
+
+* {
+  font-family: "Proza Libre", sans-serif;
+  font-size: 40px;
+}
+
+/* Flex */
+.flex {
+  display: flex;
+}
+.container {
+  max-width: 100vw;
+  height: calc(
+    100vh - 18px
+  ); /*  2 * (8px da margin do body) + 2 * (1px da border do container) */
+  margin: 0 auto;
+  border: 1px solid #ccc;
+}
+.center {
+  align-items: center; /* vertical */
+  justify-content: center; /* horizontal */
+}
