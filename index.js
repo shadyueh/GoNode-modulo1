@@ -35,6 +35,20 @@ app.post("/check", (req, res) => {
   return res.redirect(`/${path}?age=` + age);
 });
 
+// responde a requisição para '/major'
+app.get("/major", (req, res) => {
+  return res.render("age_check", {
+    message: `Você é maior de idade e possui ${req.query.age} anos.`
+  });
+});
+
+// responde a requisição para '/minor'
+app.get("/minor", (req, res) => {
+  return res.render("age_check", {
+    message: `Você é menor de idade e possui ${req.query.age} anos.`
+  });
+});
+
 app.listen(3000);
 
 // iniciar a app com yarn start (scripts em package.json já configurado)
