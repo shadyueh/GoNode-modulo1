@@ -16,6 +16,18 @@ app.use(express.urlencoded({ extended: false }));
 // define a extensão para o arquivo de templates
 app.set("view engine", "njk");
 
+// interceptador (middleware)
+const checkAgeParam = (req, res, next) => {
+  console.log(
+    `URL: ${req.url} | METHOD: ${req.method} | AGE: ${req.query.age}`
+  );
+  if (isNaN(req.query.age)) {
+    return res.redirect("/");
+  } else {
+    return next(); //evita o bloqueio do fluxo da requisição
+  }
+};
+
 // responde a requisição para '/'
 app.get("/", (req, res) => {
   // renderizando uma view com nunjucks, passando parâmetros
@@ -36,14 +48,14 @@ app.post("/check", (req, res) => {
 });
 
 // responde a requisição para '/major'
-app.get("/major", (req, res) => {
+app.get("/major", checkAgeParam, (req, res) => {
   return res.render("age_check", {
     message: `Você é maior de idade e possui ${req.query.age} anos.`
   });
 });
 
 // responde a requisição para '/minor'
-app.get("/minor", (req, res) => {
+app.get("/minor", checkAgeParam, (req, res) => {
   return res.render("age_check", {
     message: `Você é menor de idade e possui ${req.query.age} anos.`
   });
